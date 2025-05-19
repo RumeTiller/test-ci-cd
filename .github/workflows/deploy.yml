@@ -21,6 +21,6 @@ jobs:
       - name: Deploy via SSH to Windows Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} powershell -Command "
-            cd 'C:\\inetpub\\wwwroot\\test-cicd';
+            cd 'C:\\inetpub\\wwwroot\\\test-cicd\\test-ci-cd';
             git pull origin main;
           "
