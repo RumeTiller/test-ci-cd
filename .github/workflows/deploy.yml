@@ -1,4 +1,4 @@
-name: Deploy to VPS on Push to Main
+name: Deploy to Windows Server on Push to Main
 
 on:
   push:
@@ -13,15 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up SSH
+      - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Deploy via SSH
+      - name: Deploy via SSH to Windows Server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
-            cd /path/to/your/project
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} powershell -Command "
+            cd 'C:\\inetpub\\wwwroot\\test-cicd';
             git pull origin main;
-
-          EOF
+          "
